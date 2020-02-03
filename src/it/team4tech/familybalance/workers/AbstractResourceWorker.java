@@ -4,10 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import javax.ws.rs.core.Response.Status;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import it.team4tech.familybalance.configuration.db.HibernateBaseConfiguration;
+import it.team4tech.familybalance.exceptions.ServiceException;
 import it.team4tech.familybalance.utils.ImplicitObjectMapper;
 import it.team4tech.familybalance.utils.TriFunction;
 
@@ -50,7 +53,7 @@ public abstract class AbstractResourceWorker {
 		}
 		catch(Exception e) {
 			session.getTransaction().rollback();
-			throw e;
+			throw new ServiceException(e.getClass().getName(), Status.INTERNAL_SERVER_ERROR, e.getMessage());
 		}
 		finally {
 			if(session.getTransaction().isActive()) 
@@ -97,7 +100,11 @@ public abstract class AbstractResourceWorker {
 	 */
 	
 	public <T> List<T> getObjectById(Integer id, Class<T> entityToSearch, Session session) {
-		return findEntity(id, entityToSearch, session, this::getObjectByIdFunction);
+		List<T> result = findEntity(id, entityToSearch, session, this::getObjectByIdFunction);
+		if(result == null)
+			throw new ServiceException("Resource Not Found", Status.NOT_FOUND, "Resource with id: " + id + "; not found");
+		else
+			return result;
 	}
 	
 	public <T> List<T> getObjectByIdFunction(Integer id, Class<T> entityToSearch, Session session) {
@@ -105,7 +112,11 @@ public abstract class AbstractResourceWorker {
 	}
 	
 	public <T> List<T> getObjectsList(Class<T> entityToSearch, Session session) {
-		return findEntity(null, entityToSearch, session, this::getObjectsListFunction);
+		List<T> result = findEntity(null, entityToSearch, session, this::getObjectsListFunction);
+		if(result == null)
+			throw new ServiceException("Rescources not found", Status.NOT_FOUND, "No rows found for entity: " + entityToSearch.getSimpleName());
+		else
+			return result;
 	}
 	
 	@SuppressWarnings("unchecked")

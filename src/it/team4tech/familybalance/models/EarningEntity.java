@@ -2,6 +2,7 @@ package it.team4tech.familybalance.models;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.ForeignKey;
 
 import it.team4tech.familybalance.utils.Type;
 
@@ -32,8 +35,8 @@ public class EarningEntity {
 	@Column(nullable = false)
 	private Double earningValue;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn
+	@ManyToOne(optional = false)
+	@JoinColumn(insertable = false, updatable = false)
 	private FamilyEntity earningFamily;
 	
 	//GETTERS & SETTERS

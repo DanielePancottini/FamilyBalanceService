@@ -2,9 +2,11 @@ package it.team4tech.familybalance.models;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -32,7 +34,7 @@ public class CostEntity {
 	@Column(nullable = false)
 	private Double costValue;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(optional = false)
 	@JoinColumn
 	private FamilyEntity costFamily;
 

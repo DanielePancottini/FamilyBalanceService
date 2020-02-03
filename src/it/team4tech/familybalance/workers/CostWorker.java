@@ -3,7 +3,6 @@ package it.team4tech.familybalance.workers;
 import java.util.List;
 
 import it.team4tech.familybalance.domain.Cost;
-import it.team4tech.familybalance.domain.Family;
 import it.team4tech.familybalance.endpoints.CostResource;
 import it.team4tech.familybalance.models.CostEntity;
 
@@ -43,9 +42,4 @@ public class CostWorker extends AbstractResourceWorker {
 		super.deleteObjectById(id, CostEntity.class, super.sessionFactory.openSession());
 	}
 	
-	/*
-	 * Utils
-	 */
-	
-	public Family getCostFamily
 }

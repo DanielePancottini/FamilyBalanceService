@@ -16,14 +16,14 @@ public class Earning {
 	private String earningName;
 	private String earningDescription;
 	private Double earningValue;
-	private Integer earningFamily;
+	private Family earningFamily;
 	
 	//GETTERS & SETTERS
 
-	public Integer getEarningFamily() {
+	public Family getEarningFamily() {
 		return earningFamily;
 	}
-	public void setEarningFamily(Integer earningFamily) {
+	public void setEarningFamily(Family earningFamily) {
 		this.earningFamily = earningFamily;
 	}
 	public Integer getEarningId() {

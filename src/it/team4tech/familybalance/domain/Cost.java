@@ -16,16 +16,14 @@ public class Cost {
 	private String costName;
 	private String costDescription;
 	private Double costValue;
-	private Integer costFamily;
-	
-	private Family family;
+	private Family costFamily;
 
 	//GETTERS & SETTERS
 	
-	public Integer getCostFamily() {
+	public Family getCostFamily() {
 		return costFamily;
 	}
-	public void setCostFamily(Integer costFamily) {
+	public void setCostFamily(Family costFamily) {
 		this.costFamily = costFamily;
 	}
 	public Integer getCostId() {

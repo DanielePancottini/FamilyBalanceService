@@ -2,6 +2,7 @@ package it.team4tech.familybalance.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,10 +19,10 @@ public class FamilyEntity {
 	@Column(nullable = false)
 	private String familyName;
 	
-	@OneToMany(mappedBy = "costFamily")
+	@OneToMany(mappedBy = "costFamily", cascade = CascadeType.REMOVE)
 	private List<CostEntity> familyCosts;
 	
-	@OneToMany(mappedBy = "earningFamily")
+	@OneToMany(mappedBy = "earningFamily", cascade = CascadeType.REMOVE)
 	private List<EarningEntity> familyEarnings;
 	
 	//GETTERS & SETTERS
