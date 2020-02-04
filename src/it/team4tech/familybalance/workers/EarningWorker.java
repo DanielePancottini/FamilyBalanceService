@@ -20,7 +20,21 @@ public class EarningWorker extends AbstractResourceWorker{
 	}
 	
 	public Earning getEarningById(Integer id) {
-		result super.objectMapper.fromModelToDomain(super.getObjectById(id, entityToSearch, session), domainClass)
+		return super.objectMapper.fromModelToDomain(super.getObjectById(id, entityToSearch, session), Earning.class);
+	}
+	
+	public List<Earning> getEarnings(){
+		List<Earning> resultSet = super.getObjectsList(EarningEntity.class, super.sessionFactory.openSession());
+		return super.objectMapper.fromModelToDomainList(resultSet, Earning.class);
+	}
+	
+	public Earning updateEarning(Earning param){
+		EarningEntity result = super.updateObject(super.objectMapper.fromDomainToModel(param, EarningEntity.class), super.sessionFactory.openSession());
+		return super.objectMapper.fromModelToDomain(result, Entity.class);
+	}
+	
+	public void deleteEntity(Integer id){
+		super.deleteObjectById(id, EarningEntity.class, super.sessionFactory.openSession());
 	}
 	
 }
