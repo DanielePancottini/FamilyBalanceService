@@ -1,8 +1,11 @@
 package it.team4tech.familybalance.configuration.db;
 
+import javax.ws.rs.core.Response.Status;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import it.team4tech.familybalance.exceptions.ServiceException;
 import it.team4tech.familybalance.models.CostEntity;
 import it.team4tech.familybalance.models.EarningEntity;
 import it.team4tech.familybalance.models.FamilyEntity;
@@ -23,7 +26,7 @@ public class HibernateBaseConfiguration {
 	    } catch (Throwable ex) {
 	      // Make sure you log the exception, as it might be swallowed
 	      System.err.println("Initial SessionFactory creation failed." + ex);
-	      throw new ExceptionInInitializerError(ex);
+	      throw new ServiceException("DB CONNECTION ERROR", Status.INTERNAL_SERVER_ERROR, ex.getMessage());
 	    }
 	  }
 	 

@@ -22,7 +22,7 @@ import it.team4tech.familybalance.workers.CostWorker;
  *
  */
 
-@Path("/cost")
+@Path("costs")
 public class CostResource {
 
 	CostWorker costWorker;
@@ -48,7 +48,7 @@ public class CostResource {
 	@POST
 	public Response postCost(String body) {
 		Cost cost = this.gson.fromJson(body, Cost.class);
-		return Response.ok(this.gson.toJson(this.costWorker.persistCost(cost))).build();
+		return Response.ok(this.gson.toJson(this.costWorker.persistCost(cost))).status(Status.CREATED).build();
 	}
 	
 	@PUT

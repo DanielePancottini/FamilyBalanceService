@@ -27,8 +27,28 @@ public abstract class AbstractResourceWorker {
 	ImplicitObjectMapper objectMapper;
 	
 	public AbstractResourceWorker() {
-		this.sessionFactory = HibernateBaseConfiguration.getSessionFactory();
+		try {
+			this.sessionFactory = HibernateBaseConfiguration.getSessionFactory();
+		}
+		catch(Throwable e) {
+			System.err.println("Error during open session: " + e.getMessage());
+			throw new ServiceException("DB CONNECTION ERROR", Status.INTERNAL_SERVER_ERROR, e.getMessage());
+		}
 		this.objectMapper = new ImplicitObjectMapper();
+	}
+	
+	/**
+	 * Get session method, to be called to throw exceptions from db status
+	 */
+	public Session openSession() {
+		try {
+			Session session = this.sessionFactory.openSession();
+			return session;
+		}
+		catch(Exception e) {
+			System.err.println("Error during open session: " + e.getMessage());
+			throw new ServiceException("DB CONNECTION ERROR", Status.INTERNAL_SERVER_ERROR, e.getMessage());
+		}
 	}
 	
 
